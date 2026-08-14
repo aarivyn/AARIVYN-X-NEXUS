@@ -1,23 +1,37 @@
-"""NEXUS ingest service configuration."""
-from __future__ import annotations
-
 import os
-from pathlib import Path
+from pydantic import BaseModel, Field
+from typing import List
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = Path(os.environ.get("NEXUS_DATA_DIR", BASE_DIR / "data"))
-UPLOAD_DIR = DATA_DIR / "uploads"
-CONVERTED_DIR = DATA_DIR / "converted"
+class Settings(BaseModel):
+    APP_NAME: str = "NEXUS Community Development Intelligence Backend"
+    ENV: str = os.getenv("ENV", "development")
+    
+    POSTGRES_USER: str = os.getenv("POSTGRES_USER", "postgres")
+    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "postgres")
+    POSTGRES_DB: str = os.getenv("POSTGRES_DB", "nexus_db")
+    POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "db")
+    POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", "5432")
+    
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    )
+    
+    REDIS_HOST: str = os.getenv("REDIS_HOST", "redis" if os.getenv("DOCKER_CONTAINER") else "localhost")
+    REDIS_PORT: int = int(os.getenv("REDIS_PORT", "6379"))
+    REDIS_URL: str = os.getenv("REDIS_URL", f"redis://{REDIS_HOST}:{REDIS_PORT}/0")
+    
+    PLANETARY_COMPUTER_STAC_URL: str = "https://planetarycomputer.microsoft.com/api/stac/v1"
+    
+    # CORS Configuration
+    CORS_ALLOWED_ORIGINS: List[str] = [
+        origin.strip() for origin in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8000,http://127.0.0.1:3000").split(",") if origin.strip()
+    ]
+    
+    # AOI Safety Boundaries & Spatial Resource Protection
+    NEXUS_MAX_AOI_AREA_KM2: float = float(os.getenv("NEXUS_MAX_AOI_AREA_KM2", "25000.0"))
+    NEXUS_MAX_AOI_WIDTH_KM: float = float(os.getenv("NEXUS_MAX_AOI_WIDTH_KM", "200.0"))
+    NEXUS_MAX_AOI_HEIGHT_KM: float = float(os.getenv("NEXUS_MAX_AOI_HEIGHT_KM", "200.0"))
+    NEXUS_MAX_RASTER_PIXELS: int = int(os.getenv("NEXUS_MAX_RASTER_PIXELS", "250000000")) # 250M pixels cap
 
-# Safety limits
-MAX_UPLOAD_BYTES = int(os.environ.get("NEXUS_MAX_UPLOAD_BYTES", 2 * 1024**3))  # 2 GiB
-MAX_EMBEDDED_GEOJSON_BYTES = int(os.environ.get("NEXUS_MAX_EMBEDDED_GEOJSON", 50 * 1024**2))  # 50 MB
-MAX_EMBEDDED_TEXT_BYTES = int(os.environ.get("NEXUS_MAX_EMBEDDED_TEXT", 200 * 1024))  # 200 KB
-MAX_RASTER_STATS_BYTES = 150 * 1024**2  # read pixel array for stats only below this
-POINTCLOUD_PREVIEW_POINTS = 5_000
-POINTCLOUD_STATS_CAP = 2_000_000  # read at most this many points for bounds/stats
-
-
-def ensure_dirs() -> None:
-    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    CONVERTED_DIR.mkdir(parents=True, exist_ok=True)
+settings = Settings()
