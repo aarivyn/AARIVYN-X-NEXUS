@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-abyss text-ink-hi antialiased;
+    font-feature-settings: "cv05" 1, "ss01" 1, "tnum" 1;
+    background-image:
+      radial-gradient(1100px 600px at 78% -12%, rgba(76, 201, 232, 0.07), transparent 60%),
+      radial-gradient(900px 520px at 4% 108%, rgba(240, 166, 60, 0.05), transparent 62%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-observed/30 text-ink-hi;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2c4a73 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #1e3554;
+    border-radius: 9px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #2c4a73;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /* Instrument hairline grid — the command-centre texture, used sparingly. */
+  .grid-ruled {
+    background-image:
+      linear-gradient(to right, rgba(30, 53, 84, 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 53, 84, 0.5) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .rule-label {
+    @apply font-mono text-micro uppercase text-ink-lo;
+  }
+
+  /* Provenance edge — a 2px left border encoding where a value came from. */
+  .from-entered {
+    box-shadow: inset 2px 0 0 0 #c7d6ea;
+  }
+  .from-observed {
+    box-shadow: inset 2px 0 0 0 #4cc9e8;
+  }
+  .from-inferred {
+    box-shadow: inset 2px 0 0 0 #f0a63c;
+  }
+}
+
+/* MapLibre chrome retuned to the panel language */
+.maplibregl-ctrl-group {
+  background: rgba(16, 30, 51, 0.92) !important;
+  border: 1px solid #1e3554 !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid #1e3554 !important;
+}
+.maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: invert(1) brightness(0.86);
+}
+.maplibregl-ctrl-scale {
+  background: rgba(7, 13, 24, 0.75) !important;
+  border-color: #2c4a73 !important;
+  color: #9fb4ce !important;
+  font-family: var(--font-mono), monospace !important;
+  font-size: 10px !important;
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(7, 13, 24, 0.8) !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: #61789a !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Community map popovers — matched to the panel language */
+.nexus-popup .maplibregl-popup-content {
+  background: rgba(16, 30, 51, 0.96);
+  border: 1px solid #1e3554;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+}
+.nexus-popup .maplibregl-popup-tip {
+  border-top-color: rgba(16, 30, 51, 0.96);
+  border-bottom-color: rgba(16, 30, 51, 0.96);
+}
+.nexus-popup .maplibregl-popup-close-button {
+  color: #61789a;
+  font-size: 16px;
+  padding: 2px 7px;
+}
+.nexus-popup .maplibregl-popup-close-button:hover {
+  background: transparent;
+  color: #e6effa;
+}
