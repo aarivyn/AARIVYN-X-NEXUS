@@ -1,14 +1,17 @@
 # NEXUS — Decision Intelligence Platform for Rural Development Planning
 
-> AI-powered decision intelligence for water shortage and rural infrastructure planning, combining satellite/geospatial data, research evidence, and multi-objective optimization to help government officials, NGOs, and CSR teams design and compare intervention plans under real-world constraints.
+> A Smart optimization intelligence engine for water shortage and rural infrastructure planning, combining satellite/geospatial data, research evidence, and multi-objective optimization to help government officials, NGOs, and CSR teams design and compare intervention plans under real-world constraints.
 
 ## Team
 
 **Team Name : ** AARIVYN
 **Team Lead : ** Sumit Pandey
 **Members:**
+
 Alhamda Iqbal Sadiq
+
 Kanika Kaushal
+
 Koshin H Hegde
 
 **Institute : IIT Madras** 
