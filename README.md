@@ -8,7 +8,7 @@
 **Team Lead : ** Sumit Pandey
 **Members:**
 
-Alhamda Iqbal Sadiq
+AKSHITA GARG
 
 Kanika Kaushal
 
