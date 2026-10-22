@@ -6,10 +6,9 @@
 
 **Team Name : ** AARIVYN
 **Team Lead : ** Sumit Pandey
+
 **Members:**
-
 Akshita Garg
-
 Mayank 
 
 **Institute : IIT Madras** 
