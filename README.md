@@ -8,11 +8,9 @@
 **Team Lead : ** Sumit Pandey
 **Members:**
 
-AKSHITA GARG
+Akshita Garg
 
-Kanika Kaushal
-
-Koshin H Hegde
+Mayank 
 
 **Institute : IIT Madras** 
 
